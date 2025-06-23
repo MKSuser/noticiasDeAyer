@@ -264,6 +264,21 @@ interface NotificadorANSI{
 
 data class InfoANSI(val from: String, val body : MutableList<ANSIDTO>)
 
+//*DTO - Data Transfer Object
+// Es una clase diseñada específicamente para transportar datos entre diferentes capas
+// o módulos de una aplicación. No tiene lógica de negocio (solo getters/setters
+// o propiedades) y se usa para formatear datos de una forma que otro sistema,
+// servicio o módulo necesita.
+//
+// ¿Por qué usar DTOs?
+//Separación de responsabilidades: tu dominio (Noticia, Periodista, etc.) no se contamina con requisitos de otros sistemas.
+//Seguridad: no exponés toda la estructura interna de tus objetos.
+//Facilidad de transporte: los DTOs suelen ser planos (sin referencias circulares) y fáciles de serializar (JSON, XML, etc.).
+//Flexibilidad: si ANSI cambia su formato, solo cambiás el DTO, no tu modelo de dominio.*/
+
+// En el caso del parcial, este objeto simplifica y adapta la información de la
+// noticia para que se la puedas enviar a ANSI. No le importa cómo se calcula
+// la prioridad o qué hace el periodista. Solo necesita datos claros.
 data class ANSIDTO(
     val codigo:String,
     val desarrollo: String,
