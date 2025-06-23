@@ -116,29 +116,29 @@ data class Publicacion(
 
 //STRATEGY + COMPOSITE
 interface CriterioEleccion {
-    fun cumpleCriterio(noticia:Noticia): Boolean
+    fun cumple(noticia:Noticia): Boolean
 }
 
 //HOJA
 object GustaAlPeriodista: CriterioEleccion{
-    override fun cumpleCriterio(noticia: Noticia) = noticia.periodista.leGusta(noticia)
+    override fun cumple(noticia: Noticia) = noticia.periodista.leGusta(noticia)
 }
 
 //HOJA
 object NoticiaSensacionalista: CriterioEleccion{
-    override fun cumpleCriterio(noticia: Noticia) = noticia.esSensacionalista()
+    override fun cumple(noticia: Noticia) = noticia.esSensacionalista()
 }
 
 //HOJA
 class RangoImportancia(val valorMinimo: Int, val valorMaximo: Int): CriterioEleccion{
-    override fun cumpleCriterio(noticia: Noticia) = noticia.importancia in valorMinimo..valorMaximo
+    override fun cumple(noticia: Noticia) = noticia.importancia in valorMinimo..valorMaximo
 }
 
 //RAMA
 class Combineta(val criterios : MutableList<CriterioEleccion>): CriterioEleccion{ //Constructor Inyector
     //val criterios = mutableListOf<CriterioEleccion>() --> Setter Inyector
 
-    override fun cumpleCriterio(noticia: Noticia) = criterios.all{ it.cumpleCriterio(noticia)}
+    override fun cumple(noticia: Noticia) = criterios.all{ it.cumple(noticia)}
 }
 //********************************************//
 //*Elegí tener un admin de tipo object global ya que me permite reutilizarlo.
@@ -151,7 +151,7 @@ object Administrador{
 
     fun generarPublicacion(noticias: MutableList<Noticia>){
         noticias.forEach {
-            if(criterioEleccion.cumpleCriterio(it)){
+            if(criterioEleccion.cumple(it)){
             noticiasConfirmadas.add(it)}
         }
     }
