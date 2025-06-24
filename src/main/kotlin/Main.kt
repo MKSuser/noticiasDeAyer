@@ -139,6 +139,10 @@ class Combineta(val criterios : MutableList<CriterioEleccion>): CriterioEleccion
     //val criterios = mutableListOf<CriterioEleccion>() --> Setter Inyector
 
     override fun cumple(noticia: Noticia) = criterios.all{ it.cumple(noticia)}
+
+    fun agregarCriterio(criterio: CriterioEleccion){ criterios.add(criterio) }
+
+    fun eliminarCriterio(criterio: CriterioEleccion){ criterios.remove(criterio) }
 }
 //********************************************//
 //*Elegí tener un admin de tipo object global ya que me permite reutilizarlo.
@@ -164,6 +168,16 @@ object Administrador{
 
         return publicacion
     }
+
+    fun agregarnNoticia(noticia: Noticia){ noticiasConfirmadas.add(noticia) }
+
+    fun eliminarNoticia(noticia: Noticia){ noticiasConfirmadas.remove(noticia) }
+
+    fun agregarObserver(observer: PublicacionObserver){ publicacionObservers.add(observer) }
+
+    fun eliminarObserver(observer: PublicacionObserver){ publicacionObservers.remove(observer) }
+
+    fun cambiarCriterio(criterio: CriterioEleccion){ criterioEleccion = criterio }
 }
 //********************************************//
 //OBSERVERS
